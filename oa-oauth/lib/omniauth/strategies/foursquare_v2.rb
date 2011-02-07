@@ -41,6 +41,7 @@ module OmniAuth
         first_name, last_name = user_data['firstName'], user_data['lastName']
         name = "#{first_name} #{last_name}".strip
         twitter_handle = user_data['contact']['twitter'] rescue nil
+        facebook_id = user_data['contact']['facebook'] rescue nil
         email_address = user_data['contact']['email'] rescue nil
         phone_number = user_data['contact']['phone'] rescue nil
         {
@@ -48,6 +49,8 @@ module OmniAuth
           'first_name' => first_name,
           'last_name' => last_name,
           'email' => email_address,
+          'twitter' => twitter_handle,
+          'facebook' => facebook_id,
           'name' => name,
           'image' => user_data['photo'],
           'phone' => phone_number,
@@ -59,7 +62,7 @@ module OmniAuth
         OmniAuth::Utils.deep_merge(super, {
           'uid' => user_data['id'],
           'user_info' => user_info,
-          'extra' => {'user_hash' => user_data}
+          'extra' => {}
         })
       end
     end
